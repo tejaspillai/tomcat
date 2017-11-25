@@ -1,0 +1,24 @@
+version: 2
+jobs:
+ build:
+   working_directory: /tomcat
+   docker: 
+      - image: docker:17.05.0-ce-git
+   steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+         name: Install Dependencies
+         command: |
+              apk get --no-cache py-pip=9.0.0-r1
+              pip install docker_compose==1.15.0
+      - run:
+         name : final commands
+         command: |
+              docker-compose up -d
+              docker-compose run tomcat ls
+        
+
+   
+
+
